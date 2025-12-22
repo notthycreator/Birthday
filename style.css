@@ -222,3 +222,6 @@ button {
   padding: 14px 28px;
   max-font-size: 22px;
 }
+#questionBox {
+  margin-top: -40px;   /* pull it upward */
+}
