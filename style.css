@@ -1,0 +1,200 @@
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(120deg, #ffb6c1, #e6ccff);
+  font-family: 'Comic Sans MS', cursive;
+  overflow: hidden;
+  text-align: center;
+}
+#start {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+button {
+  font-size: 24px;
+  padding: 15px 30px;
+  border-radius: 20px;
+  border: none;
+  background: #ff69b4;
+  color: white;
+}
+#main {
+  padding-top: 60px;
+}
+.hidden {
+  display: none !important;
+}
+.typing {
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid pink;
+  width: 0;
+  animation: typing 3s steps(25) forwards;
+}
+@keyframes typing {
+  to { width: 100%; }
+}
+.heart {
+  position: absolute;
+  color: red;
+  font-size: 24px;
+  animation: float 5s linear infinite;
+}
+@keyframes float {
+  from {
+    transform: translateY(100vh);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-10vh);
+    opacity: 0;
+  }
+}
+.glow {
+  color: #fff;
+  font-size: 42px;
+  font-weight: bold;
+  text-shadow:
+    0 0 5px #ff69b4,
+    0 0 10px #ff69b4,
+    0 0 20px #ff1493,
+    0 0 40px #ff1493;
+  animation: glowPulse 2s infinite alternate;
+}
+@keyframes glowPulse {
+  from {
+    text-shadow:
+      0 0 5px #ffb6c1,
+      0 0 10px #ffb6c1,
+      0 0 20px #ff69b4;
+  }
+  to {
+    text-shadow:
+      0 0 10px #ff1493,
+      0 0 20px #ff1493,
+      0 0 40px #ff1493;
+  }
+}
+.flowers {
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+  font-size: 32px;
+  animation: flowerWave 3s infinite ease-in-out;
+}
+@keyframes flowerWave {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-5px); }
+  100% { transform: translateY(0); }
+}
+.flower {
+  position: absolute;
+  bottom: 0;
+  font-size: 28px;
+  animation: floatFlower 6s linear;
+}
+@keyframes floatFlower {
+  from { transform: translateY(0); opacity: 1; }
+  to   { transform: translateY(-100vh); opacity: 0; }
+}
+.css-rose {
+  .rose {
+  position: fixed;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 48px;
+  z-index: 10;
+  animation: roseGlow 2s infinite alternate;
+}
+}
+.petal {
+  width: 30px;
+  height: 30px;
+  background: crimson;
+  border-radius: 50% 50% 50% 0;
+  position: absolute;
+  transform-origin: bottom right;
+}
+.petal:nth-child(1) { transform: rotate(0deg); }
+.petal:nth-child(2) { transform: rotate(120deg); }
+.petal:nth-child(3) { transform: rotate(240deg); }
+.question {
+  font-size: 22px;
+  margin-top: 30px;
+  color: #fff;
+}
+.choices {
+  margin-top: 15px;
+}
+.yes-btn, .no-btn {
+  font-size: 18px;
+  padding: 10px 25px;
+  margin: 10px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+}
+.yes-btn {
+  background: #ff69b4;
+  color: white;
+}
+.no-btn {
+  background: #ffc0cb;
+  color: #333;
+}
+.love {
+  position: fixed;
+  font-size: 26px;
+  pointer-events: none;
+  animation: loveFly 2s ease-out forwards;
+}
+@keyframes loveFly {
+  from {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translate(0, -120px) scale(1.5);
+    opacity: 0;
+  }
+}
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+.wrong-text {
+  margin-top: 15px;
+  font-size: 22px;
+  color: #fff;
+  animation: fadeIn 0.3s ease-in;
+}
+.love-photo {
+  display: block;
+  margin: 15px auto;
+  width: 80vw;
+  max-width: 300px;
+  max-height: 45vh;     
+  object-fit: contain; 
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(255, 105, 180, 0.8);
+}
+@keyframes photoFade {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+#questionBox {
+  margin-top: 20px;
+}

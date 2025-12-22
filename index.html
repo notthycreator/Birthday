@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday Mimi❤️</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<div class="flowers">
+  🌸 🌼 🌷 🌹 🌸 🌼 🌷 🌹
+</div>
+<body>
+<div id="start">
+  <button onclick="start()">🎁 Tap to Open</button>
+</div>
+<audio id="bgm" src="Stephen Sanchez - Until I Found You (Lyrics)(MP3_160K).mp3" loop></audio>
+<audio id="noSound" src="effect.opus"></audio>
+<div id="main" class="hidden">
+  <h1 class="typing">🎉Happy Birthday 🎉</h1>
+  <h2>To you ani cute Mimi❤️ 💖</h2>
+  <p>I lalu ani Mimi 🌸</p>
+  <h2><span class="glow">❤️Mimi❤️</span></h2>
+  <p>😘I want to see you achive😘</p>
+  <p>🎉🎂Mai cha d twi nung d🎉🎂</p>
+  <p>If i get to repeat my life, i will do the exact mistakes and choices again so that it leads me right to you</p>
+</div>
+<div class="css-rose">
+  <div class="petal"></div>
+  <div class="petal"></div>
+  <div class="petal"></div>
+</div>
+<div id="questionBox" class="hidden">
+  <p class="question">Do you love me ani mimi? 💕</p>
+  <div class="choices">
+    <button id="yesBtn" class="yes-btn" onclick="sayYes()">YES 😊</button>
+    <button class="no-btn" onclick="sayNo()">NO 😜</button>
+  </div>
+  <p id="wrong" class="hidden wrong-text">Hy khe ma huya 😜</p>
+  <p id="answer" class="hidden answer-text"></p>
+  <img id="lovePhoto" src="IMG-20251212-WA0026.jpg" class="hidden love-photo">
+</div>
+<script src="script.js"></script>
+</body>
+</html>
