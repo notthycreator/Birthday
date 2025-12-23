@@ -15,14 +15,8 @@ function start() {
   }
 
   // clear existing intervals if start() called multiple times
-  if (heartIntervalId !== null) {
-    clearInterval(heartIntervalId);
-    heartIntervalId = null;
-  }
-  if (flowerIntervalId !== null) {
-    clearInterval(flowerIntervalId);
-    flowerIntervalId = null;
-  }
+  if (heartIntervalId) clearInterval(heartIntervalId);
+  if (flowerIntervalId) clearInterval(flowerIntervalId);
 
   heartIntervalId = setInterval(createHeart, 300);
   flowerIntervalId = setInterval(createFlower, 1200);
@@ -35,7 +29,7 @@ function createHeart() {
   heart.textContent = "❤️";
 
   heart.style.position = "fixed";
-  heart.style.left = (Math.random() * 90 + 5) + "vw"; // 5vw..95vw to avoid clipping
+  heart.style.left = Math.random() * 100 + "vw";
   heart.style.top = "90vh";
   heart.style.pointerEvents = "none";
   heart.style.zIndex = "9999";
@@ -52,8 +46,8 @@ function createFlower() {
   flower.textContent = "🌸";
 
   flower.style.position = "fixed";
-  flower.style.left = (Math.random() * 90 + 5) + "vw"; // 5vw..95vw
-  flower.style.top = (Math.random() * 60) + "vh";
+  flower.style.left = Math.random() * 100 + "vw";
+  flower.style.top = Math.random() * 60 + "vh";
   flower.style.pointerEvents = "none";
   flower.style.zIndex = "9999";
 
@@ -99,9 +93,6 @@ function sayNo() {
 }
 
 function sayYes() {
-  // stop ongoing effects so the page doesn't keep spawning things after acceptance
-  stopEffects();
-
   const btn = document.getElementById("yesBtn");
   if (btn) {
     for (let i = 0; i < 15; i++) {
@@ -111,19 +102,20 @@ function sayYes() {
 
   const ans = document.getElementById("answer");
   if (ans) {
-    ans.textContent = "Aww 💖 I knew it 😘🌹 I lalu ani Mimi."; // check wording if desired
-    // make sure the message is visible above overlays/animations
+    ans.textContent = "Aww 💖 I knew it 😘🌹 I lalu ani Mimi.";
     ans.classList.remove("hidden");
+    // make the message visible above the image but do NOT block clicks on underlying buttons
     ans.style.position = "fixed";
     ans.style.top = "10%";
     ans.style.left = "50%";
     ans.style.transform = "translateX(-50%)";
     ans.style.zIndex = "10001";
-    ans.style.pointerEvents = "auto";
+    ans.style.pointerEvents = "none"; // <-- important: allow clicks to pass through
   }
 
   const photo = document.getElementById("photoScreen");
   if (photo) {
+    // ensure photo is behind the message visually
     photo.style.zIndex = "10000";
     photo.classList.remove("hidden");
   }
@@ -134,13 +126,10 @@ function createLove(button) {
   love.className = "love";
   love.textContent = "💖";
 
-  const rect = button ? button.getBoundingClientRect() : { left: innerWidth / 2, top: innerHeight / 2, width: 0, height: 0 };
+  const rect = button ? button.getBoundingClientRect() : { left: innerWidth / 2, top: innerHeight / 2, width: 0 };
   love.style.position = "fixed";
-  const leftPx = rect.left + rect.width / 2;
-  const topPx = rect.top + rect.height / 2;
-  love.style.left = leftPx + "px";
-  love.style.top = topPx + "px";
-  love.style.transform = "translate(-50%, -50%)";
+  love.style.left = rect.left + rect.width / 2 + "px";
+  love.style.top = rect.top + "px";
   love.style.pointerEvents = "none";
   love.style.zIndex = "9999";
 
@@ -151,11 +140,11 @@ function createLove(button) {
 }
 
 function stopEffects() {
-  if (heartIntervalId !== null) {
+  if (heartIntervalId) {
     clearInterval(heartIntervalId);
     heartIntervalId = null;
   }
-  if (flowerIntervalId !== null) {
+  if (flowerIntervalId) {
     clearInterval(flowerIntervalId);
     flowerIntervalId = null;
   }
