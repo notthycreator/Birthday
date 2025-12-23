@@ -1,79 +1,147 @@
+let heartIntervalId = null;
+let flowerIntervalId = null;
+let noSoundEndedHandler = null;
+
 function start() {
-  document.getElementById("start").style.display = "none";
-  document.getElementById("main").classList.remove("hidden");
-  document.getElementById("bgm").play();
-  setInterval(createHeart, 300);
-  setInterval(createFlower, 1200);
+  const startBtn = document.getElementById("start");
+  const main = document.getElementById("main");
+  const bgm = document.getElementById("bgm");
+
+  if (startBtn) startBtn.style.display = "none";
+  if (main) main.classList.remove("hidden");
+
+  if (bgm) {
+    bgm.play().catch(() => { /* autoplay blocked — will play on user interaction */ });
+  }
+
+  // clear existing intervals if start() called multiple times
+  if (heartIntervalId) clearInterval(heartIntervalId);
+  if (flowerIntervalId) clearInterval(flowerIntervalId);
+
+  heartIntervalId = setInterval(createHeart, 300);
+  flowerIntervalId = setInterval(createFlower, 1200);
   setTimeout(showQuestion, 2000);
 }
+
 function createHeart() {
   const heart = document.createElement("div");
   heart.className = "heart";
-  heart.innerHTML = "❤️";
+  heart.textContent = "❤️";
+
+  heart.style.position = "fixed";
   heart.style.left = Math.random() * 100 + "vw";
+  heart.style.top = "90vh";
+  heart.style.pointerEvents = "none";
+  heart.style.zIndex = "9999";
+
   document.body.appendChild(heart);
   setTimeout(() => {
-    heart.remove();
+    if (heart.parentNode) heart.remove();
   }, 5000);
 }
+
 function createFlower() {
   const flower = document.createElement("div");
   flower.className = "flower";
-  flower.innerHTML = "🌸";
+  flower.textContent = "🌸";
+
+  flower.style.position = "fixed";
   flower.style.left = Math.random() * 100 + "vw";
+  flower.style.top = Math.random() * 60 + "vh";
+  flower.style.pointerEvents = "none";
+  flower.style.zIndex = "9999";
+
   document.body.appendChild(flower);
   setTimeout(() => {
-    flower.remove();
+    if (flower.parentNode) flower.remove();
   }, 6000);
 }
-function start() {
-  document.getElementById("start").style.display = "none";
-  document.getElementById("main").classList.remove("hidden");
-  document.getElementById("bgm").play();
-  setInterval(createHeart, 300);
-  setTimeout(showQuestion, 2000);
-}
+
 function showQuestion() {
-  document.getElementById("questionBox").classList.remove("hidden");
+  const qb = document.getElementById("questionBox");
+  if (qb) qb.classList.remove("hidden");
 }
+
 function sayNo() {
   const box = document.getElementById("questionBox");
   const wrong = document.getElementById("wrong");
   const bgm = document.getElementById("bgm");
   const noSound = document.getElementById("noSound");
-  bgm.pause();
-  noSound.currentTime = 0;
-  noSound.play();
-  box.style.animation = "shake 0.4s";
-  setTimeout(() => box.style.animation = "", 400);
-  wrong.classList.remove("hidden");
-  setTimeout(() => {
-    wrong.classList.add("hidden");
-  }, 1000);
-  noSound.onended = () => {
-    bgm.play();
-  };
+
+  if (bgm && !bgm.paused) bgm.pause();
+
+  if (noSound) {
+    noSound.currentTime = 0;
+    noSound.play().catch(() => { /* play blocked */ });
+
+    if (noSoundEndedHandler) noSound.removeEventListener("ended", noSoundEndedHandler);
+    noSoundEndedHandler = () => {
+      if (bgm) bgm.play().catch(() => {});
+    };
+    noSound.addEventListener("ended", noSoundEndedHandler);
+  }
+
+  if (box) {
+    box.style.animation = "shake 0.4s";
+    setTimeout(() => { if (box) box.style.animation = ""; }, 400);
+  }
+
+  if (wrong) {
+    wrong.classList.remove("hidden");
+    setTimeout(() => { if (wrong) wrong.classList.add("hidden"); }, 1000);
+  }
 }
+
 function sayYes() {
   const btn = document.getElementById("yesBtn");
-  for (let i = 0; i < 15; i++) {
-    createLove(btn);
+  if (btn) {
+    for (let i = 0; i < 15; i++) {
+      createLove(btn);
+    }
   }
+
   const ans = document.getElementById("answer");
-  ans.innerHTML = "Aww 💖 I knew it 😘🌹 I lalu ani Mimi.";
-  ans.classList.remove("hidden");
-  document.getElementById("photoScreen").classList.remove("hidden");
+  if (ans) {
+    ans.textContent = "Aww 💖 I knew it 😘🌹 I lalu ani Mimi.";
+    ans.classList.remove("hidden");
+  }
+
+  const photo = document.getElementById("photoScreen");
+  if (photo) photo.classList.remove("hidden");
 }
+
 function createLove(button) {
   const love = document.createElement("div");
   love.className = "love";
-  love.innerHTML = "💖";
-  const rect = button.getBoundingClientRect();
+  love.textContent = "💖";
+
+  const rect = button ? button.getBoundingClientRect() : { left: innerWidth / 2, top: innerHeight / 2, width: 0 };
+  love.style.position = "fixed";
   love.style.left = rect.left + rect.width / 2 + "px";
   love.style.top = rect.top + "px";
+  love.style.pointerEvents = "none";
+  love.style.zIndex = "9999";
+
   document.body.appendChild(love);
   setTimeout(() => {
-    love.remove();
+    if (love.parentNode) love.remove();
   }, 2000);
 }
 
+function stopEffects() {
+  if (heartIntervalId) {
+    clearInterval(heartIntervalId);
+    heartIntervalId = null;
+  }
+  if (flowerIntervalId) {
+    clearInterval(flowerIntervalId);
+    flowerIntervalId = null;
+  }
+  if (noSoundEndedHandler) {
+    const noSound = document.getElementById("noSound");
+    if (noSound) noSound.removeEventListener("ended", noSoundEndedHandler);
+    noSoundEndedHandler = null;
+  }
+}
+
+window.addEventListener('beforeunload', stopEffects);
