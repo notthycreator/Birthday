@@ -63,7 +63,6 @@ function sayYes() {
   ans.innerHTML = "Aww 💖 I knew it 😘🌹 I lalu ani Mimi.";
   ans.classList.remove("hidden");
   document.getElementById("lovePhoto").classList.remove("hidden");
-  document.getElementById("main").classList.add("hidden");
 }
 function createLove(button) {
   const love = document.createElement("div");
@@ -76,7 +75,4 @@ function createLove(button) {
   setTimeout(() => {
     love.remove();
   }, 2000);
-
 }
-
-
