@@ -34,6 +34,7 @@ function start() {
   setTimeout(showQuestion, 2000);
 }
 function showQuestion() {
+  alert("showQuestion called");
   document.getElementById("questionBox").classList.remove("hidden");
 }
 function sayNo() {
@@ -78,3 +79,4 @@ function createLove(button) {
   }, 2000);
 
 }
+
