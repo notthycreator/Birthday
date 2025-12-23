@@ -62,7 +62,7 @@ function sayYes() {
   const ans = document.getElementById("answer");
   ans.innerHTML = "Aww 💖 I knew it 😘🌹 I lalu ani Mimi.";
   ans.classList.remove("hidden");
-  document.getElementById("lovePhoto").classList.remove("hidden");
+  document.getElementById("photoScreen").classList.remove("hidden");
 }
 function createLove(button) {
   const love = document.createElement("div");
@@ -76,3 +76,4 @@ function createLove(button) {
     love.remove();
   }, 2000);
 }
+
