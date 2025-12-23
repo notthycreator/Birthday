@@ -91,7 +91,6 @@ function sayNo() {
     setTimeout(() => { if (wrong) wrong.classList.add("hidden"); }, 1000);
   }
 }
-
 function sayYes() {
   const btn = document.getElementById("yesBtn");
   if (btn) {
@@ -99,17 +98,33 @@ function sayYes() {
       createLove(btn);
     }
   }
-
+  const ans = document.getElementById("answer");
+  if (ans) {
+    ans.innerHTML = "Aww 💖 I knew it 😘🌹 I lalu ani Mimi.";
+    // make sure the message is visible above overlays/animations
+    ans.classList.remove("hidden");
+    ans.style.position = "fixed";      // keep it visible even if other elements flow
+    ans.style.top = "10%";            // adjust as needed
+    ans.style.left = "50%";
+    ans.style.transform = "translateX(-50%)";
+    ans.style.zIndex = "10001";       // higher than floating hearts/flowers
+    ans.style.pointerEvents = "auto"; // allow interactions if any
+  }
+  const photo = document.getElementById("photoScreen");
+  if (photo) {
+    // make sure photo is behind the message (lower z-index)
+    photo.style.zIndex = "10000";
+    photo.classList.remove("hidden");
+  }
+}
   const ans = document.getElementById("answer");
   if (ans) {
     ans.textContent = "Aww 💖 I knew it 😘🌹 I lalu ani Mimi.";
     ans.classList.remove("hidden");
   }
-
   const photo = document.getElementById("photoScreen");
   if (photo) photo.classList.remove("hidden");
 }
-
 function createLove(button) {
   const love = document.createElement("div");
   love.className = "love";
@@ -127,7 +142,6 @@ function createLove(button) {
     if (love.parentNode) love.remove();
   }, 2000);
 }
-
 function stopEffects() {
   if (heartIntervalId) {
     clearInterval(heartIntervalId);
@@ -143,5 +157,4 @@ function stopEffects() {
     noSoundEndedHandler = null;
   }
 }
-
 window.addEventListener('beforeunload', stopEffects);
