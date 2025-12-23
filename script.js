@@ -4,6 +4,7 @@ function start() {
   document.getElementById("bgm").play();
   setInterval(createHeart, 300);
   setInterval(createFlower, 1200);
+  setTimeout(showQuestion, 2000);
 }
 function createHeart() {
   const heart = document.createElement("div");
@@ -75,4 +76,5 @@ function createLove(button) {
   setTimeout(() => {
     love.remove();
   }, 2000);
+
 }
